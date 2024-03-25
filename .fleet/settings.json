@@ -1,0 +1,6 @@
+{
+    "nodejs.typescript.rebuildOnChanges": true,
+    "editor.guides": [],
+    "nodejs.editor.formatOnSave.prettier.mode": "Enabled",
+    "editor.formatOnSave": true
+}

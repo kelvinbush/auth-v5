@@ -23,7 +23,7 @@ export const newPassword = async (
 
   if (!existingToken) return { error: "Invalid Password reset token" };
 
-  if (existingToken.expire > new Date(new Date().getTime() + 3600 * 1000))
+  if (new Date(existingToken.expire) < new Date())
     return { error: "Token has expired" };
 
   const existingUser = await getUserByEmail(existingToken.email);
@@ -38,6 +38,12 @@ export const newPassword = async (
     where: { id: existingUser.id },
     data: {
       password: hashedPassword,
+    },
+  });
+
+  await db.passwordResetToken.delete({
+    where: {
+      id: existingToken.id,
     },
   });
 
